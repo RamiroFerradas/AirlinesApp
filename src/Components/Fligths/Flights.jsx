@@ -5,9 +5,9 @@ import RenderList from "../../RenderList/RenderList";
 import StyledText from "../Styles/StyledText";
 
 export default function Flights() {
-  const { fligths } = useFectchData(["flights"]);
+  const { flights } = useFectchData(["flights"]);
 
-  const info = fligths?.map((e) => e.flight_number);
+  const info = flights?.map((e) => e.flight_number);
 
   return (
     <View>

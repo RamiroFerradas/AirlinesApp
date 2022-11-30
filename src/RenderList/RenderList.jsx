@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import StyledText from "../Components/Styles/StyledText";
 import useFectchData from "../Hooks/useFectchData";
 
-export default function RenderList({ data }) {
+export default function RenderList({ data, setCity }) {
   const styles = StyleSheet.create({
     container: {
       // flex: 3,
@@ -21,7 +21,14 @@ export default function RenderList({ data }) {
       <FlatList
         data={data?.map((e) => e)}
         renderItem={({ item }) => (
-          <StyledText list align="center" fontWeight="bold">
+          <StyledText
+            list
+            value={item}
+            name={item}
+            align="center"
+            onPress={() => setCity && setCity(item)}
+            fontWeight="bold"
+          >
             {item}
           </StyledText>
         )}

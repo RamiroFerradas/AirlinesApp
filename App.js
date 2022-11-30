@@ -19,6 +19,7 @@ export default function App() {
           <Route path="/airlines" exact element={<Airlines />} />
 
           <Route path="/airports" exact element={<Airports />} />
+
           <Route path="/flights" exact element={<Flights />} />
         </Routes>
       </NativeRouter>
