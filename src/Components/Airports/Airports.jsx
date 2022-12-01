@@ -89,7 +89,9 @@ export default function Airports() {
               name={!viewList ? "arrow-down" : "arrow-up"}
               size={30}
               color="#878282"
-              onPress={() => setViewList(!viewList)}
+              onPress={() => {
+                setViewList(!viewList);
+              }}
               style={{ backgroundColor: "#ffffff0" }}
             />
           </View>
