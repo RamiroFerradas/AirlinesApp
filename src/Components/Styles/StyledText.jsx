@@ -22,6 +22,9 @@ export const styles = StyleSheet.create({
   subheading: {
     fontSize: theme.fontSizes.subheading,
   },
+  high: {
+    fontSize: theme.fontSizes.high,
+  },
   textAlignCenter: {
     textAlign: "center",
   },
@@ -61,11 +64,13 @@ export const styles = StyleSheet.create({
   },
   input: {
     textAlign: "center",
-    // flex: 0.3,
-    borderRadius: 10,
-    // backgroundColor: "#5b5959c",
-    borderWidth: 2,
-    padding: 3,
+    flex: 1,
+  },
+  search: {
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    borderColor: "#000",
+    paddingVertical: 8,
   },
 });
 
@@ -88,6 +93,7 @@ export default function StyledText({
     color === "primary" && styles.colorPrimary,
     color === "secondary" && styles.colorSecondary,
     fontSize === "subheading" && styles.subheading,
+    fontSize === "high" && styles.high,
     fontWeight === "bold" && styles.bold,
     style,
   ];

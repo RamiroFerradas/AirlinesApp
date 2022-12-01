@@ -1,1 +1,4 @@
 # AirlinesApp
+
+-NPM INSTALL
+-NPX EXPO START

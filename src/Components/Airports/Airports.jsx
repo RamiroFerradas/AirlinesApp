@@ -12,6 +12,7 @@ import Navbar from "../../Navbar/Navbar";
 import RenderList from "../../RenderList/RenderList";
 import Loader from "../Loader/Loader";
 import StyledText, { styles } from "../Styles/StyledText";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function Airports() {
   const [input, setInput] = useState("");
@@ -59,6 +60,8 @@ export default function Airports() {
     </View>
   );
 
+  const [viewList, setViewList] = useState(false);
+
   return !airports ? (
     <Loader />
   ) : (
@@ -66,23 +69,41 @@ export default function Airports() {
       <Navbar />
 
       <StyledText color="secondary" title>
-        AIRPORTS
+        AIRPORTS IN USA
       </StyledText>
       {airportByCity ? (
         airportsByCityRender()
       ) : (
         <>
-          <TextInput
-            style={styles.input}
-            placeholder="Search city..."
-            value={input}
-            onChangeText={setInput}
-            onFocus={() => {
-              console.log("hola");
-            }}
+          <View style={styles.search}>
+            <TextInput
+              style={styles.input}
+              placeholder="Search city..."
+              value={input}
+              onChangeText={setInput}
+              onFocus={() => {
+                setViewList(!viewList);
+              }}
+            />
+            <Icon.Button
+              name={!viewList ? "arrow-down" : "arrow-up"}
+              size={30}
+              color="#878282"
+              onPress={() => setViewList(!viewList)}
+              style={{ backgroundColor: "#ffffff0" }}
+            />
+          </View>
+          <Icon
+            onPress={() => console.log("holaaaaa")}
+            ios="ios-add"
+            android="md-add"
           />
-
-          <RenderList data={data?.sort()} setCity={setCity} />
+          {viewList && <RenderList data={data?.sort()} setCity={setCity} />}
+          {viewList && !data.length && (
+            <StyledText align="center" fontSize="subheading">
+              No cities found...
+            </StyledText>
+          )}
         </>
       )}
     </View>
