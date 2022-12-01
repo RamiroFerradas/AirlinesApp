@@ -47,35 +47,25 @@ export const styles = StyleSheet.create({
     height: 48,
     borderRadius: 4,
   },
-  appBar: {
-    container: {
-      backgroundColor: theme.appBar.primary,
-      paddingTop: Constants.statusBarHeight + 10,
-      paddingBottom: 10,
-      // flexDirection: "row",
-      textAling: "center",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    text: {
-      color: theme.appBar.textSecondary,
-      paddingHorizontal: 25,
-    },
-    scroll: { paddingBottom: 10 },
-    active: {
-      color: theme.appBar.textPrimary,
-    },
-  },
+
   list: {
     padding: 5,
     fontSize: 18,
     height: 44,
   },
   title: {
-    textAlign: "center", // <-- the magic
+    textAlign: "center",
     fontWeight: "bold",
     fontSize: 22,
-    backgroundColor: "yellow",
+    backgroundColor: "#141313d8",
+  },
+  input: {
+    textAlign: "center",
+    // flex: 0.3,
+    borderRadius: 10,
+    // backgroundColor: "#5b5959c",
+    borderWidth: 2,
+    padding: 3,
   },
 });
 

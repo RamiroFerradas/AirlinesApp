@@ -8,17 +8,23 @@ import {
   View,
 } from "react-native";
 import useFectchData from "../../Hooks/useFectchData";
+import Navbar from "../../Navbar/Navbar";
 import RenderList from "../../RenderList/RenderList";
 import Loader from "../Loader/Loader";
-import StyledText from "../Styles/StyledText";
-import AirportsByCityRender from "./airportsByCityRender";
+import StyledText, { styles } from "../Styles/StyledText";
 
 export default function Airports() {
+  const [input, setInput] = useState("");
+
   const { setCity, airportByCity, setAirportByCity, airports } = useFectchData([
     "airports",
   ]);
-
   const info = airports?.map((e) => e.city);
+
+  const cityRender = info?.filter((e) =>
+    e.toLowerCase().includes(input.toLowerCase())
+  );
+  const data = [...new Set(cityRender)];
 
   const airportsCity = airportByCity?.map((e) => {
     return (
@@ -57,6 +63,8 @@ export default function Airports() {
     <Loader />
   ) : (
     <View>
+      <Navbar />
+
       <StyledText color="secondary" title>
         AIRPORTS
       </StyledText>
@@ -65,15 +73,16 @@ export default function Airports() {
       ) : (
         <>
           <TextInput
-            // style={styles.input}
+            style={styles.input}
             placeholder="Search city..."
-            // value={searchPhrase}
-            // onChangeText={setSearchPhrase}
-            // onFocus={() => {
-            //   setClicked(true);
-            // }}
+            value={input}
+            onChangeText={setInput}
+            onFocus={() => {
+              console.log("hola");
+            }}
           />
-          <RenderList data={info.sort()} setCity={setCity} />
+
+          <RenderList data={data?.sort()} setCity={setCity} />
         </>
       )}
     </View>
