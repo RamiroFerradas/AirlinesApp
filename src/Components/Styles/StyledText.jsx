@@ -67,10 +67,10 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   search: {
-    flexDirection: "row",
-    borderBottomWidth: 1,
-    borderColor: "#000",
-    paddingVertical: 8,
+    // flexDirection: "row",
+    // borderBottomWidth: 1,
+    // borderColor: "#000",
+    paddingVertical: 6,
   },
 });
 

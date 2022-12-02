@@ -1,31 +1,32 @@
 import React, { useState } from "react";
-import {
-  Button,
-  FlatList,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 import useFectchData from "../../Hooks/useFectchData";
 import Navbar from "../../Navbar/Navbar";
 import RenderList from "../../RenderList/RenderList";
 import Loader from "../Loader/Loader";
 import StyledText, { styles } from "../Styles/StyledText";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { Box, Center, Input, Modal, Button, useToken } from "native-base";
 
 export default function Airports() {
   const [input, setInput] = useState("");
-
+  const [showModal, setShowModal] = useState(true);
   const { setCity, airportByCity, setAirportByCity, airports } = useFectchData([
     "airports",
   ]);
-  const info = airports?.map((e) => e.city);
+  const info = airports?.map((e) => {
+    return {
+      key: e.city,
+      id: e.id,
+    };
+  });
+
+  const [viewList, setViewList] = useState(false);
 
   const cityRender = info?.filter((e) =>
-    e.toLowerCase().includes(input.toLowerCase())
+    e.key.toLowerCase().includes(input.toLowerCase())
   );
-  const data = [...new Set(cityRender)];
+
+  const data = [...new Set(cityRender?.sort())];
 
   const airportsCity = airportByCity?.map((e) => {
     return (
@@ -60,8 +61,6 @@ export default function Airports() {
     </View>
   );
 
-  const [viewList, setViewList] = useState(false);
-
   return !airports ? (
     <Loader />
   ) : (
@@ -76,32 +75,26 @@ export default function Airports() {
       ) : (
         <>
           <View style={styles.search}>
-            <TextInput
-              style={styles.input}
-              placeholder="Search city..."
-              value={input}
-              onChangeText={setInput}
-              onFocus={() => {
-                setViewList(!viewList);
-              }}
-            />
-            <Icon.Button
-              name={!viewList ? "arrow-down" : "arrow-up"}
-              size={30}
-              color="#878282"
-              onPress={() => {
-                setViewList(!viewList);
-              }}
-              style={{ backgroundColor: "#ffffff0" }}
-            />
+            <Center>
+              <Box alignItems="center">
+                <Input
+                  variant="rounded"
+                  mx="2"
+                  w="100%"
+                  style={styles.input}
+                  placeholder="Search city..."
+                  value={input}
+                  onChangeText={setInput}
+                  onFocus={() => {
+                    setViewList(!viewList);
+                  }}
+                />
+              </Box>
+            </Center>
           </View>
-          <Icon
-            onPress={() => console.log("holaaaaa")}
-            ios="ios-add"
-            android="md-add"
-          />
-          {viewList && <RenderList data={data?.sort()} setCity={setCity} />}
-          {viewList && !data.length && (
+
+          {<RenderList data={data} setCity={setCity} section="airports" />}
+          {!data.length && (
             <StyledText align="center" fontSize="subheading">
               No cities found...
             </StyledText>

@@ -7,8 +7,8 @@ import { NativeBaseProvider } from "native-base";
 //Components
 import Airlines from "./src/Components/Airlines/Airlines";
 import Airports from "./src/Components/Airports/Airports";
-import Flights from "./src/Components/Fligths/Flights";
 import Landing from "./src/Components/Landing/Landing";
+import Flights from "./src/Components/Fligths/Flights";
 import { View } from "react-native";
 
 export default function App() {

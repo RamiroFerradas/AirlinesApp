@@ -8,15 +8,19 @@ import StyledText from "../Styles/StyledText";
 export default function Flights() {
   const { flights } = useFectchData(["flights"]);
 
-  const info = flights?.map((e) => e.flight_number);
-
+  const info = flights?.map((e) => {
+    return {
+      key: e.flight_number,
+      id: e.id,
+    };
+  });
   return (
     <View>
       <Navbar />
       <StyledText color="secondary" title>
         FLIGHTS
       </StyledText>
-      <RenderList data={info} />
+      <RenderList data={info} section="flights" />
     </View>
   );
 }
