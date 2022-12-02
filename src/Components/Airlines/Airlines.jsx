@@ -10,7 +10,7 @@ export default function Airlines() {
 
   const info = airlines?.map((e) => {
     return {
-      key: e.airline,
+      name: e.airline,
       id: e.id,
     };
   });

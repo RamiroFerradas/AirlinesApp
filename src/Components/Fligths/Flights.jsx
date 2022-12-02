@@ -10,7 +10,7 @@ export default function Flights() {
 
   const info = flights?.map((e) => {
     return {
-      key: e.flight_number,
+      name: e.flight_number,
       id: e.id,
     };
   });

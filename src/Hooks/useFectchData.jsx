@@ -16,7 +16,9 @@ export default function useFectchData(url) {
       setAirportByCity(json);
     };
 
-    const fetchData = async () => {
+    var fetchData = async () => {
+      console.log(url, "HOLAAAAAAA");
+
       url.map(async (e) => {
         const res = await axios(`http://192.168.0.160:3001/${e}`);
         const json = await res.data;
@@ -35,7 +37,6 @@ export default function useFectchData(url) {
   } catch (error) {
     console.log(error);
   }
-
   return {
     airlines,
     airports,
@@ -44,5 +45,6 @@ export default function useFectchData(url) {
     city,
     airportByCity,
     setAirportByCity,
+    fetchData,
   };
 }

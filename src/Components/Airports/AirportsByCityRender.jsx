@@ -1,46 +1,58 @@
 import React, { useState } from "react";
-import { Button, FlatList, StyleSheet, Text, View } from "react-native";
-import useFectchData from "../../Hooks/useFectchData";
-import RenderList from "../../RenderList/RenderList";
-import Loader from "../Loader/Loader";
+import { Button, StyleSheet, View } from "react-native";
+
 import StyledText from "../Styles/StyledText";
 
 export default function AirportsByCityRender({
   airportByCity,
   setAirportByCity,
+  setCity,
 }) {
-  const airportsCity = airportByCity?.map((e) => {
-    return (
-      <>
-        <View>
-          <StyledText
-            style={{ width: 140 }}
-            fontWeight="bold"
-            fontSize="subheading"
-            color="primary"
-            align="center"
-          >
-            {e.airport}
-          </StyledText>
-
-          <StyledText style={{ marginTop: 20 }} color="secondary">
-            Latitude: {e.latitude}
-          </StyledText>
-          <StyledText color="secondary">Longitude: {e.longitude}</StyledText>
-          <StyledText color="secondary" style={{ marginBottom: 20 }}>
-            Satate: {e.state}
-          </StyledText>
-        </View>
-      </>
-    );
-  });
-
-  return !airportsCity.length ? (
-    <Loader />
-  ) : (
+  return (
     <View>
-      <RenderList data={airportsCity} />
+      {airportByCity?.map((e, index) => {
+        return (
+          <>
+            <View style={styles.container}>
+              <StyledText
+                key={index}
+                style={{ width: 140 }}
+                fontWeight="bold"
+                fontSize="subheading"
+                color="primary"
+                align="center"
+                onPress={() => setCity(e.key)}
+              >
+                {e.airport}
+              </StyledText>
+
+              <StyledText style={{ marginTop: 20 }} color="secondary">
+                Latitude: {e.latitude}
+              </StyledText>
+              <StyledText color="secondary">
+                Longitude: {e.longitude}
+              </StyledText>
+              <StyledText color="secondary" style={{ marginBottom: 20 }}>
+                Satate: {e.state}
+              </StyledText>
+            </View>
+          </>
+        );
+      })}
       <Button title="BACK" onPress={() => setAirportByCity(null)} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 22,
+  },
+  item: {
+    padding: 5,
+    fontSize: 18,
+    height: 44,
+  },
+});
