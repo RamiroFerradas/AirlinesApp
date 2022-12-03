@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function useFectchData(url) {
-  const [airlines, setAirline] = useState(null);
-  const [airports, setAirports] = useState(null);
-  const [flights, setFlights] = useState(null);
-  const [city, setCity] = useState(null);
-  const [airportByCity, setAirportByCity] = useState(null);
+  const [airlines, setAirline] = useState([]);
+  const [airports, setAirports] = useState([]);
+  const [flights, setFlights] = useState([]);
+  const [city, setCity] = useState([]);
+  const [airportByCity, setAirportByCity] = useState([]);
   try {
+    console.log(city);
     const fetchAirports = async () => {
       const res = await axios(
         `http://192.168.0.160:3001/airports?city=${city}`
@@ -17,8 +18,6 @@ export default function useFectchData(url) {
     };
 
     var fetchData = async () => {
-      console.log(url, "HOLAAAAAAA");
-
       url.map(async (e) => {
         const res = await axios(`http://192.168.0.160:3001/${e}`);
         const json = await res.data;

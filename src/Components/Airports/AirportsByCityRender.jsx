@@ -1,5 +1,12 @@
+import { ScrollView } from "native-base";
 import React, { useState } from "react";
-import { Button, StyleSheet, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  TouchableNativeFeedback,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 
 import StyledText from "../Styles/StyledText";
 
@@ -8,39 +15,42 @@ export default function AirportsByCityRender({
   setAirportByCity,
   setCity,
 }) {
+  // console.log(airportByCity);
   return (
-    <View>
+    <ScrollView>
       {airportByCity?.map((e, index) => {
         return (
           <>
-            <View style={styles.container}>
-              <StyledText
-                key={index}
-                style={{ width: 140 }}
-                fontWeight="bold"
-                fontSize="subheading"
-                color="primary"
-                align="center"
-                onPress={() => setCity(e.key)}
-              >
-                {e.airport}
-              </StyledText>
+            <TouchableWithoutFeedback>
+              <View style={styles.container}>
+                <StyledText
+                  key={index}
+                  style={{ width: 140 }}
+                  fontWeight="bold"
+                  fontSize="subheading"
+                  color="primary"
+                  align="center"
+                  onPress={() => setCity(e.key)}
+                >
+                  {e.airport}
+                </StyledText>
 
-              <StyledText style={{ marginTop: 20 }} color="secondary">
-                Latitude: {e.latitude}
-              </StyledText>
-              <StyledText color="secondary">
-                Longitude: {e.longitude}
-              </StyledText>
-              <StyledText color="secondary" style={{ marginBottom: 20 }}>
-                Satate: {e.state}
-              </StyledText>
-            </View>
+                <StyledText style={{ marginTop: 20 }} color="secondary">
+                  Latitude: {e.latitude}
+                </StyledText>
+                <StyledText color="secondary">
+                  Longitude: {e.longitude}
+                </StyledText>
+                <StyledText color="secondary" style={{ marginBottom: 20 }}>
+                  Satate: {e.state}
+                </StyledText>
+              </View>
+            </TouchableWithoutFeedback>
           </>
         );
       })}
       <Button title="BACK" onPress={() => setAirportByCity(null)} />
-    </View>
+    </ScrollView>
   );
 }
 

@@ -8,9 +8,10 @@ import axios from "axios";
 import { NBox, Box, Center } from "native-base";
 
 export default function RenderList({ data, setCity, section }) {
-  // const { fetchData } = useFectchData(["airlines", "airports"]);
+  const { fetchData } = useFectchData(["airlines", "airports"]);
 
   const [render, setRender] = useState([]);
+
   const deleteFunction = async (id) => {
     (await axios.delete(`http://192.168.0.160:3001/${section}/${id}`)).data;
 
@@ -19,8 +20,7 @@ export default function RenderList({ data, setCity, section }) {
 
   useEffect(() => {
     setRender(data);
-    // fetchData();
-    console.log("hola");
+    fetchData();
   }, [data]);
 
   // const LinearGradient = require("expo-linear-gradient").LinearGradient;
@@ -29,7 +29,11 @@ export default function RenderList({ data, setCity, section }) {
   //     "linear-gradient": LinearGradient,
   //   },
   // };
-  return (
+  return !data ? (
+    <View>
+      <Text>Nada...</Text>
+    </View>
+  ) : (
     <View style={styles.container}>
       <FlatList
         data={render?.map((e) => e)}
@@ -49,7 +53,7 @@ export default function RenderList({ data, setCity, section }) {
                 value={index}
                 name={index}
                 align="center"
-                onPress={() => setCity && setCity(item.name)}
+                // onPress={() => setCity && setCity(item.name)}
                 fontWeight="bold"
               >
                 <> {item.name}</>
