@@ -26,19 +26,11 @@ export default function Airports() {
     setInfo(res);
   }, [airports]);
 
-  // console.log(info);
-
   const listCitys = info?.filter((e) =>
     e.name.toLowerCase().includes(input.toLowerCase())
   );
-  // console.log(airportByCity);
-  // const listCitys = [...new Set(cityRender)];
 
-  // console.log(listCitys);
-
-  // console.log(cityRender.length);
-
-  return !airports ? (
+  return !airports.length ? (
     <Loader />
   ) : (
     <View>
@@ -46,7 +38,7 @@ export default function Airports() {
       <StyledText color="secondary" title>
         AIRPORTS IN USA
       </StyledText>
-      {airportByCity ? (
+      {airportByCity?.length ? (
         <AirportsByCityRender
           airportByCity={airportByCity}
           setAirportByCity={setAirportByCity}

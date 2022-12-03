@@ -12,11 +12,6 @@ export default function Airlines() {
   const [condition, setCondition] = useState(false);
 
   useEffect(() => {
-    if (typeof airlines === "object") {
-      setCondition(true);
-    } else {
-      setCondition(false);
-    }
     if (condition) {
       const data = airlines?.map((e) => {
         return {
@@ -25,9 +20,15 @@ export default function Airlines() {
         };
       });
       setInfo(data);
+      if (typeof airlines === "object") {
+        setCondition(true);
+      } else {
+        setCondition(false);
+      }
     }
   }, [airlines]);
-  console.log(condition);
+
+  // console.log(condition);
   return (
     <View>
       <Navbar />

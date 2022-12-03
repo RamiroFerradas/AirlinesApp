@@ -5,10 +5,9 @@ export default function useFectchData(url) {
   const [airlines, setAirline] = useState([]);
   const [airports, setAirports] = useState([]);
   const [flights, setFlights] = useState([]);
-  const [city, setCity] = useState([]);
+  const [city, setCity] = useState(null);
   const [airportByCity, setAirportByCity] = useState([]);
   try {
-    console.log(city);
     const fetchAirports = async () => {
       const res = await axios(
         `http://192.168.0.160:3001/airports?city=${city}`

@@ -15,7 +15,6 @@ export default function AirportsByCityRender({
   setAirportByCity,
   setCity,
 }) {
-  // console.log(airportByCity);
   return (
     <ScrollView>
       {airportByCity?.map((e, index) => {
@@ -30,7 +29,6 @@ export default function AirportsByCityRender({
                   fontSize="subheading"
                   color="primary"
                   align="center"
-                  onPress={() => setCity(e.key)}
                 >
                   {e.airport}
                 </StyledText>

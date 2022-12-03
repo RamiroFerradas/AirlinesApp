@@ -5,7 +5,7 @@ import Separator from "../Components/Utils/Separator";
 import useFectchData from "../Hooks/useFectchData";
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from "axios";
-import { NBox, Box, Center } from "native-base";
+import { NBox, Box, Center, Pressable } from "native-base";
 
 export default function RenderList({ data, setCity, section }) {
   const { fetchData } = useFectchData(["airlines", "airports"]);
@@ -17,9 +17,15 @@ export default function RenderList({ data, setCity, section }) {
 
     setRender(render?.filter((e) => e.id !== id));
   };
+  var hash = {};
+  const arr = data?.filter((ele) => {
+    var exists = !hash[ele.name];
+    hash[ele.name] = true;
+    return exists;
+  });
 
   useEffect(() => {
-    setRender(data);
+    setRender(arr);
     fetchData();
   }, [data]);
 
@@ -39,53 +45,58 @@ export default function RenderList({ data, setCity, section }) {
         data={render?.map((e) => e)}
         renderItem={({ item, index }) => (
           <>
-            <Box
-              bg="#eab308"
-              p={2}
-              _text={{
-                fontSize: "md",
-                fontWeight: "bold",
-                color: "white",
+            <Pressable
+              onPress={() => {
+                setCity && setCity(item.name);
               }}
             >
-              <StyledText
-                list
-                value={index}
-                name={index}
-                align="center"
-                // onPress={() => setCity && setCity(item.name)}
-                fontWeight="bold"
+              <Box
+                bg="#eab308"
+                p={2}
+                _text={{
+                  fontSize: "md",
+                  fontWeight: "bold",
+                  color: "white",
+                }}
               >
-                <> {item.name}</>
-              </StyledText>
+                <StyledText
+                  // list
+                  value={index}
+                  name={index}
+                  align="center"
+                  fontWeight="bold"
+                >
+                  <> {item.name}</>
+                </StyledText>
 
-              <Center
-                // style={{ flex: 1, backgroundColor: "transparent" }}
-                // p={1}
+                <Center
+                  // style={{ flex: 1, backgroundColor: "transparent" }}
+                  // p={1}
 
-                position="absolute"
-                right={1.5}
-                // m={1}
-                // _text={{
-                //   color: "white",
-                //   textAlign: "center",
-                //   fontWeight: "700",
-                //   fontSize: "xs",
-                // }}
-              >
-                <Icon.Button
-                  onPress={() => deleteFunction(item.id)}
-                  key={index}
-                  style={{
-                    backgroundColor: "#eab308",
-                    opacity: 1,
-                  }}
-                  name="close"
-                  size={15}
-                  color="#900"
-                />
-              </Center>
-            </Box>
+                  position="absolute"
+                  right={1.5}
+                  // m={1}
+                  // _text={{
+                  //   color: "white",
+                  //   textAlign: "center",
+                  //   fontWeight: "700",
+                  //   fontSize: "xs",
+                  // }}
+                >
+                  <Icon.Button
+                    onPress={() => deleteFunction(item.id)}
+                    key={index}
+                    style={{
+                      backgroundColor: "#eab308",
+                      opacity: 1,
+                    }}
+                    name="close"
+                    size={15}
+                    color="#900"
+                  />
+                </Center>
+              </Box>
+            </Pressable>
             <Separator />
           </>
         )}
