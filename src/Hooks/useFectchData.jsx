@@ -27,11 +27,13 @@ export default function useFectchData(url) {
     };
 
     useEffect(() => {
-      fetchData();
+      if (url) {
+        fetchData();
+      }
       if (city) {
         fetchAirports();
       }
-    }, [city]);
+    }, []);
   } catch (error) {
     console.log(error);
   }

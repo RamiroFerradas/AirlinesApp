@@ -7,28 +7,29 @@ import StyledText from "../Styles/StyledText";
 
 export default function Airlines() {
   const { airlines } = useFectchData(["airlines"]);
-
   const [info, setInfo] = useState([]);
   const [condition, setCondition] = useState(false);
 
   useEffect(() => {
-    if (condition) {
-      const data = airlines?.map((e) => {
-        return {
-          name: e.airline,
-          id: e.id,
-        };
-      });
-      setInfo(data);
-      if (typeof airlines === "object") {
-        setCondition(true);
-      } else {
-        setCondition(false);
-      }
+    if (typeof airlines === "object") {
+      setCondition(true);
+    } else {
+      setCondition(false);
     }
   }, [airlines]);
 
-  // console.log(condition);
+  useEffect(() => {
+    if (condition) {
+      const data = airlines?.map(async (e) => {
+        return {
+          name: await e.airline,
+          id: await e.id,
+        };
+      });
+      setInfo(data);
+    }
+  }, [condition]);
+  // console.log(typeof airlines);
   return (
     <View>
       <Navbar />
@@ -36,7 +37,7 @@ export default function Airlines() {
         AIRLINES
       </StyledText>
       {condition ? (
-        <RenderList data={info} section={"airlines"} />
+        <RenderList data={info} section={"airlines"} delete_ />
       ) : (
         <View>
           <StyledText align="center" fontSize="subheading">

@@ -11,6 +11,7 @@ import SearchBar from "./SearchBar";
 
 export default function Airports() {
   const [input, setInput] = useState("");
+  const [view, setView] = useState(false);
   const { fetchData, setCity, airportByCity, setAirportByCity, airports } =
     useFectchData(["airports"]);
 
@@ -38,19 +39,23 @@ export default function Airports() {
       <StyledText color="secondary" title>
         AIRPORTS IN USA
       </StyledText>
-      {airportByCity?.length ? (
+      <SearchBar input={input} setInput={setInput} />
+      {view ? (
         <AirportsByCityRender
           airportByCity={airportByCity}
           setAirportByCity={setAirportByCity}
           setCity={setCity}
+          setView={setView}
+          view={view}
         />
       ) : (
         <>
-          <SearchBar input={input} setInput={setInput} />
           <RenderList
             data={listCitys?.sort()}
             setCity={setCity}
             section="airports"
+            setView={setView}
+            view={view}
           />
 
           {!listCitys && (

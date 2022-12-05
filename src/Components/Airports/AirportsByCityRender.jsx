@@ -1,5 +1,5 @@
 import { ScrollView } from "native-base";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   StyleSheet,
@@ -7,17 +7,35 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { deleteFunction } from "../../RenderList/RenderList";
+import Icon from "react-native-vector-icons/Ionicons";
 
 import StyledText from "../Styles/StyledText";
+import axios from "axios";
 
 export default function AirportsByCityRender({
   airportByCity,
   setAirportByCity,
   setCity,
+  setView,
 }) {
+  const [render, setRender] = useState([]);
+
+  const deleteFunction = async (id) => {
+    (await axios.delete(`http://192.168.0.160:3001/airports/${id}`)).data;
+
+    setRender(render?.filter((e) => e.id !== id));
+  };
+
+  useEffect(() => {
+    setRender(airportByCity);
+
+    // fetchData();
+  }, [airportByCity]);
+
   return (
     <ScrollView>
-      {airportByCity?.map((e, index) => {
+      {render?.map((e, index) => {
         return (
           <>
             <TouchableWithoutFeedback>
@@ -33,6 +51,18 @@ export default function AirportsByCityRender({
                   {e.airport}
                 </StyledText>
 
+                <Icon.Button
+                  onPress={() => deleteFunction(e.id)}
+                  // key={index}
+                  style={{
+                    backgroundColor: "white",
+                    opacity: 1,
+                  }}
+                  name="close"
+                  size={15}
+                  color="#900"
+                />
+
                 <StyledText style={{ marginTop: 20 }} color="secondary">
                   Latitude: {e.latitude}
                 </StyledText>
@@ -47,7 +77,18 @@ export default function AirportsByCityRender({
           </>
         );
       })}
-      <Button title="BACK" onPress={() => setAirportByCity(null)} />
+      {!render?.length && (
+        <StyledText align="center" fontSize="subheading">
+          No Airports found...
+        </StyledText>
+      )}
+      <Button
+        title="BACK"
+        onPress={() => {
+          setAirportByCity(null);
+          setView(false);
+        }}
+      />
     </ScrollView>
   );
 }

@@ -20,7 +20,7 @@ export default function Flights() {
       <StyledText color="secondary" title>
         FLIGHTS
       </StyledText>
-      <RenderList data={info} section="flights" />
+      <RenderList data={info} section="flights" delete_ />
     </View>
   );
 }

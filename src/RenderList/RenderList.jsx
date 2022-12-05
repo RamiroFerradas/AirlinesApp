@@ -7,16 +7,22 @@ import Icon from "react-native-vector-icons/Ionicons";
 import axios from "axios";
 import { NBox, Box, Center, Pressable } from "native-base";
 
-export default function RenderList({ data, setCity, section }) {
-  const { fetchData } = useFectchData(["airlines", "airports"]);
+export default function RenderList({
+  data,
+  setCity,
+  section,
+  delete_,
+  setView,
+}) {
+  // const { fetchData } = useFectchData(["airlines", "airports"]);
 
   const [render, setRender] = useState([]);
-
   const deleteFunction = async (id) => {
     (await axios.delete(`http://192.168.0.160:3001/${section}/${id}`)).data;
 
     setRender(render?.filter((e) => e.id !== id));
   };
+
   var hash = {};
   const arr = data?.filter((ele) => {
     var exists = !hash[ele.name];
@@ -26,7 +32,6 @@ export default function RenderList({ data, setCity, section }) {
 
   useEffect(() => {
     setRender(arr);
-    fetchData();
   }, [data]);
 
   // const LinearGradient = require("expo-linear-gradient").LinearGradient;
@@ -48,6 +53,7 @@ export default function RenderList({ data, setCity, section }) {
             <Pressable
               onPress={() => {
                 setCity && setCity(item.name);
+                setView && setView(true);
               }}
             >
               <Box
@@ -83,17 +89,19 @@ export default function RenderList({ data, setCity, section }) {
                   //   fontSize: "xs",
                   // }}
                 >
-                  <Icon.Button
-                    onPress={() => deleteFunction(item.id)}
-                    key={index}
-                    style={{
-                      backgroundColor: "#eab308",
-                      opacity: 1,
-                    }}
-                    name="close"
-                    size={15}
-                    color="#900"
-                  />
+                  {delete_ && (
+                    <Icon.Button
+                      onPress={() => deleteFunction(item.id)}
+                      key={index}
+                      style={{
+                        backgroundColor: "#eab308",
+                        opacity: 1,
+                      }}
+                      name="close"
+                      size={15}
+                      color="#900"
+                    />
+                  )}
                 </Center>
               </Box>
             </Pressable>
