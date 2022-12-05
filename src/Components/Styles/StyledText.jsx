@@ -72,6 +72,18 @@ export const styles = StyleSheet.create({
     // borderColor: "#000",
     paddingVertical: 6,
   },
+  search2: {
+    flexDirection: "row",
+    width: window.width,
+    margin: 10,
+    padding: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 4,
+    borderColor: "#888",
+    borderRadius: 10,
+    backgroundColor: "#fff",
+  },
 });
 
 export default function StyledText({

@@ -9,11 +9,10 @@ export default function useFectchData(url) {
   const [airportByCity, setAirportByCity] = useState([]);
   try {
     const fetchAirports = async () => {
-      const res = await axios(
-        `http://192.168.0.160:3001/airports?city=${city}`
-      );
-      const json = await res.data;
-      setAirportByCity(json);
+      const res = (
+        await axios(`http://192.168.0.160:3001/airports?city=${city}`)
+      ).data;
+      setAirportByCity(res);
     };
 
     var fetchData = async () => {
@@ -27,13 +26,9 @@ export default function useFectchData(url) {
     };
 
     useEffect(() => {
-      if (url) {
-        fetchData();
-      }
-      if (city) {
-        fetchAirports();
-      }
-    }, []);
+      fetchData();
+      if (city) fetchAirports();
+    }, [city]);
   } catch (error) {
     console.log(error);
   }

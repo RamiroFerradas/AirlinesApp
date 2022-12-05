@@ -14,7 +14,7 @@ export default function RenderList({
   delete_,
   setView,
 }) {
-  // const { fetchData } = useFectchData(["airlines", "airports"]);
+  // console.log(data);
 
   const [render, setRender] = useState([]);
   const deleteFunction = async (id) => {
@@ -34,12 +34,6 @@ export default function RenderList({
     setRender(arr);
   }, [data]);
 
-  // const LinearGradient = require("expo-linear-gradient").LinearGradient;
-  // const config = {
-  //   dependencies: {
-  //     "linear-gradient": LinearGradient,
-  //   },
-  // };
   return !data ? (
     <View>
       <Text>Nada...</Text>
@@ -52,13 +46,15 @@ export default function RenderList({
           <>
             <Pressable
               onPress={() => {
-                setCity && setCity(item.name);
+                setCity && setCity(item.city);
                 setView && setView(true);
               }}
+              key={item.id}
             >
               <Box
                 bg="#eab308"
                 p={2}
+                key={item.id}
                 _text={{
                   fontSize: "md",
                   fontWeight: "bold",

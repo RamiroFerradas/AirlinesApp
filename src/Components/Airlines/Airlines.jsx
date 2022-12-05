@@ -19,16 +19,38 @@ export default function Airlines() {
   }, [airlines]);
 
   useEffect(() => {
-    if (condition) {
-      const data = airlines?.map(async (e) => {
-        return {
-          name: await e.airline,
-          id: await e.id,
-        };
-      });
-      setInfo(data);
+    try {
+      if (condition) {
+        const value = airlines?.map((e) => {
+          return {
+            name: e.airline,
+            id: e.id,
+          };
+        });
+        // We have data!!
+        setInfo(value);
+      }
+    } catch (error) {
+      console.log(error.message);
     }
-  }, [condition]);
+  }, [condition, airlines]);
+
+  // useEffect(() => {
+  //   setInfo(
+  //     airlines?.map((e) => {
+  //       return {
+  //         name: e.airline ? e.airline : "No cisfsdties found...",
+  //         id: e.id ? e.id : 99,
+  //       };
+  //     })
+  //   );
+  //   // const data = airlines?.map((e) => {
+  //   //   return {
+  //   //     name: e.airline ? e.airline : "No cities found...",
+  //   //     id: e.id ? e.id : 99,
+  //   //   };
+  //   // });
+  // }, [airlines]);
   // console.log(typeof airlines);
   return (
     <View>

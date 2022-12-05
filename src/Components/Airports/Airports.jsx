@@ -22,13 +22,14 @@ export default function Airports() {
       return {
         name: e.city,
         id: e.id,
+        city: e.city,
       };
     });
     setInfo(res);
   }, [airports]);
 
   const listCitys = info?.filter((e) =>
-    e.name.toLowerCase().includes(input.toLowerCase())
+    e.name?.toLowerCase().includes(input.toLowerCase())
   );
 
   return !airports.length ? (
@@ -39,7 +40,6 @@ export default function Airports() {
       <StyledText color="secondary" title>
         AIRPORTS IN USA
       </StyledText>
-      <SearchBar input={input} setInput={setInput} />
       {view ? (
         <AirportsByCityRender
           airportByCity={airportByCity}
@@ -50,6 +50,7 @@ export default function Airports() {
         />
       ) : (
         <>
+          <SearchBar input={input} setInput={setInput} />
           <RenderList
             data={listCitys?.sort()}
             setCity={setCity}
